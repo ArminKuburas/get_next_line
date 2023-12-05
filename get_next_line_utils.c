@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:16:57 by akuburas          #+#    #+#             */
-/*   Updated: 2023/12/04 15:45:53 by akuburas         ###   ########.fr       */
+/*   Updated: 2023/12/05 08:33:53 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ char	*ft_strdup(const char *s)
 	char	*new_str;
 
 	len = ft_strlen(s);
-	new_str = (char *)ft_calloc(len + 1, sizeof(char));
+	new_str = (char *)malloc((len + 1) * sizeof(char));
+	if (!new_str)
+		return (NULL);
 	if (new_str)
 	{
 		ft_memcpy(new_str, s, len);
@@ -55,7 +57,22 @@ char	*ft_strdup(const char *s)
 	return (new_str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	while (i < n)
+	{
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		i++;
+	}
+	return (dst);
+}
+
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	size_t	len1;
 	size_t	len2;
