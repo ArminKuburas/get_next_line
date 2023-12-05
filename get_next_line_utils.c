@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:16:57 by akuburas          #+#    #+#             */
-/*   Updated: 2023/12/05 08:33:53 by akuburas         ###   ########.fr       */
+/*   Updated: 2023/12/05 10:34:55 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,22 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strdup(const char *s)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	while (i < n)
+	{
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		i++;
+	}
+	return (dst);
+}
+
+static char	*ft_strdup(const char *s)
 {
 	size_t	len;
 	char	*new_str;
@@ -55,21 +70,6 @@ char	*ft_strdup(const char *s)
 		ft_memcpy(new_str, s, len);
 	}
 	return (new_str);
-}
-
-static void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (!dst && !src)
-		return (NULL);
-	while (i < n)
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
-	return (dst);
 }
 
 char	*ft_strjoin(const char *s1, const char *s2)
