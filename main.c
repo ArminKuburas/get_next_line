@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 11:41:18 by akuburas          #+#    #+#             */
-/*   Updated: 2023/12/05 11:43:46 by akuburas         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:36:01 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ int	main(void)
 	int		fd = open("test.txt", O_RDONLY);
 	char	*line;
 
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line)
 	{
-		printf("%s\n", line);
+
+		printf("%s", line);
 		free(line);
+		line =  get_next_line(fd);
 	}
 	close(fd);
 	return (0);

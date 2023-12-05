@@ -6,14 +6,50 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 15:16:57 by akuburas          #+#    #+#             */
-/*   Updated: 2023/12/05 10:34:55 by akuburas         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:53:00 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	int	i;
+
+	if (!dst && !src)
+		return (NULL);
+	if (dst > src)
+	{
+		i = (int)len - 1;
+		while (i >= 0)
+		{
+			*(char *)(dst + i) = *(char *)(src + i);
+			i--;
+		}
+	}
+	else
+	{
+		i = 0;
+		while (i < (int)len)
+		{
+			*(char *)(dst + i) = *(char *)(src + i);
+			i++;
+		}
+	}
+	return (dst);
+}
+
 char	*ft_strchr(char *s, int c)
 {
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if ((char)c == '\0')
+	{
+		return (&s[ft_strlen(s)]);
+	}
 	while (*s != '\0')
 	{
 		if (*s == (char)c)
@@ -22,10 +58,7 @@ char	*ft_strchr(char *s, int c)
 		}
 		s++;
 	}
-	if ((char)c == '\0')
-	{
-		return (s);
-	}
+
 	return (NULL);
 }
 
@@ -41,21 +74,6 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (!dst && !src)
-		return (NULL);
-	while (i < n)
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
-	return (dst);
-}
-
 static char	*ft_strdup(const char *s)
 {
 	size_t	len;
@@ -67,7 +85,7 @@ static char	*ft_strdup(const char *s)
 		return (NULL);
 	if (new_str)
 	{
-		ft_memcpy(new_str, s, len);
+		ft_memmove(new_str, s, len);
 	}
 	return (new_str);
 }
@@ -89,8 +107,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	result = (char *)malloc(len1 + len2 + 1);
 	if (!result)
 		return (NULL);
-	ft_memcpy(result, s1, len1);
-	ft_memcpy(result + len1, s2, len2);
+	ft_memmove(result, s1, len1);
+	ft_memmove(result + len1, s2, len2);
 	result[len1 + len2] = '\0';
 	return (result);
 }

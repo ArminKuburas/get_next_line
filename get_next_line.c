@@ -6,11 +6,12 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:43:17 by akuburas          #+#    #+#             */
-/*   Updated: 2023/12/05 11:32:15 by akuburas         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:36:57 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 static char	*ft_line_allocator(int fd, char *line_storage)
 {
@@ -24,7 +25,7 @@ static char	*ft_line_allocator(int fd, char *line_storage)
 		return (NULL);
 	}
 	read_bytes = 1;
-	while (!ft_strchr(line_storage, '\n') && read_bytes != 0)
+	while (read_bytes != 0)
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes == -1)
@@ -35,6 +36,8 @@ static char	*ft_line_allocator(int fd, char *line_storage)
 		}
 		buffer[read_bytes] = '\0';
 		line_storage = ft_strjoin(line_storage, buffer);
+		if (ft_strchr(line_storage, '\n'))
+			break ;
 	}
 	free(buffer);
 	return (line_storage);
@@ -43,33 +46,57 @@ static char	*ft_line_allocator(int fd, char *line_storage)
 char	*ft_give_line(char *line_storage)
 {
 	char	*line;
-	char	*newline_pos;
-	size_t	line_length;
+	int		i;
 
-	newline_pos = ft_strchr(line_storage, '\n');
-	if (!newline_pos)
+	i = 0;
+	if (!line_storage[i])
 		return (NULL);
-	line_length = newline_pos - line_storage + 1;
-	line = (char *)malloc(line_length * sizeof(char));
+	while (line_storage[i] && line_storage[i] != '\n')
+		i++;
+	line = (char *)malloc((i + 2) * sizeof(char));
 	if (!line)
 		return (NULL);
-	ft_memcpy(line, line_storage, line_length -1);
-	line[line_length -1] = '\0';
+	i = 0;
+	while (line_storage[i] && line_storage[i] != '\n')
+	{
+		line[i] = line_storage[i];
+		i++;
+	}
+	if (line_storage[i] == '\n')
+	{
+		line[i] = line_storage[i];
+		i++;
+	}
+	line[i] = '\0';
 	return (line);
 }
 
-static char	*ft_remove_line(char *line_storage)
+static char	*ft_remove_line(char *ln_strg)
 {
-	char	*newline_pos;
-	size_t	remaining_length;
+	char	*new_storage;
+	int		i;
+	int		j;
 
-	newline_pos = ft_strchr(line_storage, 'n');
-	if (!newline_pos)
+	i = 0;
+	while (ln_strg[i] && ln_strg[i] != '\n')
+		i++;
+	if (!ln_strg[i])
+	{
+		free(ln_strg);
 		return (NULL);
-	remaining_length =ft_strlen(newline_pos + 1);
-	ft_memcpy(line_storage, newline_pos + 1, remaining_length +1);
-	return (line_storage);
+	}
+	new_storage = (char *)malloc((ft_strlen(ln_strg) - i + 1) * sizeof(char));
+	if (!new_storage)
+		return (NULL);
+	i++;
+	j = 0;
+	while (ln_strg[i])
+		new_storage[j++] = ln_strg[i++];
+	new_storage[j] = '\0';
+	free(ln_strg);
+	return (new_storage);
 }
+
 
 char	*get_next_line(int fd)
 {
@@ -88,4 +115,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line_storage = ft_remove_line(line_storage);
+	if (line_storage == NULL)
+	{
+		free(line);
+		return (NULL);
+	}
+	return (line);
 }
