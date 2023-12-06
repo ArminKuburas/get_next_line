@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:43:17 by akuburas          #+#    #+#             */
-/*   Updated: 2023/12/05 15:36:57 by akuburas         ###   ########.fr       */
+/*   Updated: 2023/12/06 03:02:32 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,19 @@ static char	*ft_line_allocator(int fd, char *line_storage)
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 	{
-		free(line_storage);
 		return (NULL);
 	}
 	read_bytes = 1;
-	while (read_bytes != 0)
+	while (!ft_strchr(line_storage, '\n') && read_bytes != 0)
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes == -1)
 		{
 			free (buffer);
-			free (line_storage);
 			return (NULL);
 		}
 		buffer[read_bytes] = '\0';
 		line_storage = ft_strjoin(line_storage, buffer);
-		if (ft_strchr(line_storage, '\n'))
-			break ;
 	}
 	free(buffer);
 	return (line_storage);
@@ -96,7 +92,6 @@ static char	*ft_remove_line(char *ln_strg)
 	free(ln_strg);
 	return (new_storage);
 }
-
 
 char	*get_next_line(int fd)
 {
