@@ -11,7 +11,7 @@ This repository will hold all my work in regards to the get next line project. T
 - [Description](#Description)
 - [Knowledge Gained](#Knowledge-Gained)
 - [Installation](#Installation)
-- [Usage](#usage)
+- [Usage](#Usage)
 - [Inspirations And Thank Yous](#inspirations-and-thank-you)
 
 ### Knowledge-Gained
@@ -21,4 +21,10 @@ This repository will hold all my work in regards to the get next line project. T
       - So why static? The term "static" is used because these variables and functions are associated with the static storage class, which means that their memory allocation and deallocation occur at compile time, and their values persist between function calls.
       - Basically they allow you to limit the scope and usage of certain functions and variables and they retain information that you can use again and again in later calls.
 2.   Continuing from the things I learnt from the printf project I made sure to think about what I have to do before working on it. I spent a day or two just considering my options, thinking about solutions, how to do it, etc. because I knew that I would not know if it works until I finished it.
-3.   I learnt more about file descriptors and how they function.
+3.   I learnt more about file descriptors and how they function. File descriptors are integer values that refer to open files or other I/O resources. I used to only know them through stuff like write function using fds like 1 or 2.
+### Installation
+Just git clone https://github.com/ArminKuburas/get_next_line.git sadly no Makefile here. We are not making a library.
+### Usage
+Will write here more about it later. Got a few ideas.
+### Inspirations-and-thank-you
+-      Mike The Greek
