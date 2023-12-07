@@ -27,4 +27,4 @@ Just git clone https://github.com/ArminKuburas/get_next_line.git sadly no Makefi
 ### Usage
 Will write here more about it later. Got a few ideas.
 ### Inspirations-and-thank-you
--      Mike The Greek
+-  Mike The Greek
