@@ -5,7 +5,7 @@
 CC=cc
 CFLAGS="-Wall -Wextra -Werror"
 
-TEST_FILES=("e_main.c" "lm_main.c" "ls_main.c" "lt_main.c" "ss_main.c" "st_main.c" "sm_main.c" "w_main.c" "n_main.c")
+TEST_FILES=("two_fds.c" "e_main.c" "lm_main.c" "ls_main.c" "lt_main.c" "ss_main.c" "st_main.c" "sm_main.c" "w_main.c" "n_main.c")
 
 for test_file in "${TEST_FILES[@]}"; do
 	test_name=$(basename "$test_file" .c)
