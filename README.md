@@ -28,4 +28,4 @@ Just git clone https://github.com/ArminKuburas/get_next_line.git sadly no Makefi
 So you can use this function through including the header and compiling it with the two files plus a source file that includes a main. If you want to you can try running the mega test I formulated for it. To do so copy the contents from help-from-mike and put it inside the mega-test and afterwards just run the big galuga test via using the command bash. It tets for basically almost any edgecase. You can modify it to increase or decrase or even remove the BUFFER_SIZE. Very fun.
 ### Inspirations-and-thank-you
 -  Mike The Greek
--  [Ilmari Välimäki] (https://github.com/ilmu23)
+-  [Ilmari Välimäki](https://github.com/ilmu23)
